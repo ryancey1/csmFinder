@@ -105,24 +105,24 @@ def merge_segment(path="./"):
                 input = open(full_file_path)
                 segment = {}
                 for line in input:
-					line = line.strip()
-					coordinate, pattern = line.split('\t')[0:2]
-					if coordinate not in segment : segment[coordinate] = {}
-					pattern_list = pattern.split(';')[0:-1]
-					for one_patt in pattern_list :
-						tmp=one_patt.split(':')
-						patt=tmp[0]
-						cov=int(tmp[1])
-						if patt in segment[coordinate] : 
-							segment[coordinate][patt] = segment[coordinate][patt] + cov
-						else : segment[coordinate][patt] = cov
+                    line = line.strip()
+                    coordinate, pattern = line.split('\t')[0:2]
+                    if coordinate not in segment : segment[coordinate] = {}
+                    pattern_list = pattern.split(';')[0:-1]
+                    for one_patt in pattern_list :
+                        tmp=one_patt.split(':')
+                        patt=tmp[0]
+                        cov=int(tmp[1])
+                        if patt in segment[coordinate] : 
+                            segment[coordinate][patt] = segment[coordinate][patt] + cov
+                        else : segment[coordinate][patt] = cov
                 out_file = root + '/' + cell_id + ".final_"
                 out=open(out_file,"w")
                 for k in sorted(segment.keys()):
-					out.write(k + "\t")
-					for k2 in sorted(segment[k].keys()) : 
-						out.write(k2 + ':' + str(segment[k][k2]) + ';')
-					out.write("\n")
+                    out.write(k + "\t")
+                    for k2 in sorted(segment[k].keys()) : 
+                        out.write(k2 + ':' + str(segment[k][k2]) + ';')
+                    out.write("\n")
                 out.close()
 
 
