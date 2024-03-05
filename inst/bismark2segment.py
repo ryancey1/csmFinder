@@ -80,13 +80,13 @@ def process_segment(CpG_file,path="./"):
                     cpg_index = temp_cpg["chrom"] + ':' +temp_cpg["loci"]
                     rev_cpg_index = pd.Series(list(set(loci) - (set(cpg_index))))
                     index = loci.isin(rev_cpg_index)
-                    segment.ix[index,0] = one_chr + ':' + (loci_mat.ix[index,0].apply(int)-1).apply(str) +'_' + (loci_mat.ix[index,1].apply(int)-1).apply(str) +'_' + (loci_mat.ix[index,2].apply(int)-1).apply(str) +'_' + (loci_mat.ix[index,3].apply(int)-1).apply(str)               
+                    segment.iloc[index,0] = one_chr + ':' + (loci_mat.iloc[index,0].apply(int)-1).apply(str) +'_' + (loci_mat.iloc[index,1].apply(int)-1).apply(str) +'_' + (loci_mat.iloc[index,2].apply(int)-1).apply(str) +'_' + (loci_mat.iloc[index,3].apply(int)-1).apply(str)               
                     temp_len = len(cpg_index)
                     temp_cpg.index = range(0,temp_len)
-                    loci_1 = temp_cpg.ix[0:(temp_len-4),1]
-                    loci_2 = temp_cpg.ix[1:(temp_len-3),1]
-                    loci_3 = temp_cpg.ix[2:(temp_len-2),1]   
-                    loci_4 = temp_cpg.ix[3:,1]
+                    loci_1 = temp_cpg.iloc[0:(temp_len-4),1]
+                    loci_2 = temp_cpg.iloc[1:(temp_len-3),1]
+                    loci_3 = temp_cpg.iloc[2:(temp_len-2),1]   
+                    loci_4 = temp_cpg.iloc[3:,1]
                     loci_1.index = range(0,temp_len-3)
                     loci_2.index = range(0,temp_len-3)
                     loci_3.index = range(0,temp_len-3)
@@ -178,10 +178,10 @@ def process_segment_single(CpG_file,path="./"):
         temp_cpg = cpg[cpg["chrom"]==one_chr]
         temp_len = len(temp_cpg)
         temp_cpg.index = range(0,temp_len)
-        loci_1 = temp_cpg.ix[0:(temp_len-4),1]
-        loci_2 = temp_cpg.ix[1:(temp_len-3),1]
-        loci_3 = temp_cpg.ix[2:(temp_len-2),1]   
-        loci_4 = temp_cpg.ix[3:,1]
+        loci_1 = temp_cpg.iloc[0:(temp_len-4),1]
+        loci_2 = temp_cpg.iloc[1:(temp_len-3),1]
+        loci_3 = temp_cpg.iloc[2:(temp_len-2),1]   
+        loci_4 = temp_cpg.iloc[3:,1]
         loci_1.index = range(0,temp_len-3)
         loci_2.index = range(0,temp_len-3)
         loci_3.index = range(0,temp_len-3)
@@ -197,6 +197,6 @@ def process_segment_single(CpG_file,path="./"):
                 cpg_index = cpg["chrom"] + ':' +cpg["loci"]
                 rev_cpg_index = pd.Series(list(set(loci) - (set(cpg_index))))
                 index = loci.isin(rev_cpg_index)
-                segment.ix[index,0] = segment["chrom_loci"].str.split(":",expand=True)[0] + ':' + (loci_mat.ix[index,0].apply(int)-1).apply(str) +'_' + (loci_mat.ix[index,1].apply(int)-1).apply(str) +'_' + (loci_mat.ix[index,2].apply(int)-1).apply(str) +'_' + (loci_mat.ix[index,3].apply(int)-1).apply(str)               
+                segment.iloc[index,0] = segment["chrom_loci"].str.split(":",expand=True)[0] + ':' + (loci_mat.iloc[index,0].apply(int)-1).apply(str) +'_' + (loci_mat.iloc[index,1].apply(int)-1).apply(str) +'_' + (loci_mat.iloc[index,2].apply(int)-1).apply(str) +'_' + (loci_mat.iloc[index,3].apply(int)-1).apply(str)               
                 segment = segment[segment["chrom_loci"].isin(ref_4CG)]
                 segment.to_csv(filename+"filter_", sep='\t', encoding='utf-8',header=False,index=False)
