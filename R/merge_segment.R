@@ -7,7 +7,7 @@ merge_segment_bulk <- function(csm_detect_output,extension=0)
 
   loci_mat <- str_split(loci, ':', n = Inf, simplify = TRUE)
   pos_mat <- str_split(loci_mat[,2], '_', n = Inf, simplify = TRUE)
-  data <- data.frame(chr=loci_mat[,1],start=as.numeric(pos_mat[,1])-extension,end=as.numeric(pos_mat[,4])+extension)
+  data <- data.frame(chr=loci_mat[,1],start=as.numeric(pos_mat[,1])-extension,end=as.numeric(pos_mat[,4])+1+extension)
   #data <- bedtoolsr::bt.sort(data)
   data <- data[order(data[,1],as.numeric(data[,2])),]
   csm_region <- bedtoolsr::bt.merge(data)
@@ -18,7 +18,7 @@ merge_segment_single_cell <- function(beta_output,extension=0)
 {
   options(stringsAsFactors=F)
   #require("bedtoolsr")
-  data <- data.frame(chr=beta_output[,1],start=as.numeric(beta_output[,2])-extension,end=as.numeric(beta_output[,3])+extension)
+  data <- data.frame(chr=beta_output[,1],start=as.numeric(beta_output[,2])-extension,end=as.numeric(beta_output[,3])+1+extension)
   #data <- bedtoolsr::bt.sort(data)
   data <- data[order(data[,1],as.numeric(data[,2])),]
   csm_region <- bedtoolsr::bt.merge(data)
