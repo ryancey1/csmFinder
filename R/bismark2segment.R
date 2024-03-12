@@ -30,7 +30,7 @@ bismark2segment <- function(files, file_type = "regular", CpG_file, tmp_folder =
     file.remove(list.files(tmp_folder, pattern = "filter_$", full.names = TRUE))
     files <- list.files(tmp_folder, pattern = "final_$", full.names = TRUE)
     segment <- lapply(files, function(seg_file) {
-      as.data.frame(data.table::fread(seg_file, sep = "\t", header = F))
+      as.data.frame(data.table::fread(seg_file, sep = "\t", header = FALSE, col.names = c("segment", "patterns")))
     })
     segment <- do.call(rbind, segment)
     file.remove(files)
