@@ -14,11 +14,13 @@ bismark2segment <- function(files, file_type = "regular", CpG_file, tmp_folder =
     print(CpgReport.gz)
     file <- basename(CpgReport.gz)
     CpgReport <- file.path(tmp_folder, gsub(".gz", "", file))
+    print("gunzip'ing CpG report")
     unfold <- R.utils::gunzip(
       filename = CpgReport.gz,
       remove = FALSE,
       destname = CpgReport
     )
+    print("split_bismark_file")
     split_bismark_file(CpgReport)
     file.remove(CpgReport)
     print("generating 4-CpG segments:")
